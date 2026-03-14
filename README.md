@@ -1,281 +1,281 @@
 # 🚀 HackoWac CI/CD Booking App
 
-![CI Pipeline](https://github.com/arshad-rahman/hackowac-cicd-booking-app/actions/workflows/ci.yml/badge.svg)
-![Docker](https://img.shields.io/badge/containerized-docker-blue)
-![Node.js](https://img.shields.io/badge/backend-nodejs-green)
-![React](https://img.shields.io/badge/frontend-react-blue)
-![PostgreSQL](https://img.shields.io/badge/database-postgresql-336791)
-![GitHub Actions](https://img.shields.io/badge/ci-github--actions-black)
-![DevOps](https://img.shields.io/badge/devops-project-orange)
-![License](https://img.shields.io/badge/license-MIT-green)
+[![CI](https://github.com/arshad-rahman/hackowac-cicd-booking-app/actions/workflows/ci.yml/badge.svg)](https://github.com/arshad-rahman/hackowac-cicd-booking-app/actions)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Docker](https://img.shields.io/badge/docker-containerized-blue)]()
+[![Terraform](https://img.shields.io/badge/IaC-Terraform-purple)]()
+[![Ansible](https://img.shields.io/badge/automation-Ansible-red)]()
+
+A **DevOps portfolio project** demonstrating a full delivery workflow for a containerized application using:
+
+- **React frontend**
+- **Node.js backend**
+- **PostgreSQL database**
+- **Docker containerization**
+- **GitHub Actions CI**
+- **GitHub Container Registry (GHCR)**
+- **Ansible deployment automation**
+- **Terraform AWS infrastructure blueprint**
+
+The goal of this project is to demonstrate **how application delivery, infrastructure design, and automation integrate into a DevOps workflow**.
 
 ---
 
-# 📌 Project Overview
+# 🧠 Project Purpose
 
-**HackoWac CI/CD Booking App** is a **containerized full-stack application** built to demonstrate a modern **DevOps CI/CD pipeline**.
+This repository is designed to showcase a **modern DevOps delivery pipeline** rather than simply an application.
 
-The project shows how production-style applications can be:
+It demonstrates how to:
 
-- Built and validated automatically
-- Containerized using Docker
-- Checked through CI pipelines
-- Published to a container registry
-- Prepared for automated deployment
-
-The main focus of this repository is **DevOps workflow design**, automation, and containerized delivery.
+• Containerize services  
+• Automate CI builds  
+• Publish deployable artifacts  
+• Automate server configuration  
+• Define infrastructure as code  
 
 ---
 
-# 🧭 Architecture
+# 🏗 Architecture Overview
 
-```text
-Developer
-   │
-   │ git push
-   ▼
+```
+Developer Push
+      │
+      ▼
 GitHub Repository
-   │
-   ▼
+      │
+      ▼
 GitHub Actions CI Pipeline
-   │
-   ├─ Checkout source code
-   ├─ Install backend dependencies
-   ├─ Install frontend dependencies
-   ├─ Build frontend application
-   ├─ Build backend Docker image
-   ├─ Build frontend Docker image
-   └─ Push images to GHCR
-         │
-         ▼
-GitHub Container Registry
-         │
-         ▼
-Future Deployment Target
-(EC2 / Kubernetes / Cloud Environment)
+      │
+      ├── Install Dependencies
+      ├── Build Frontend
+      ├── Build Backend
+      ├── Build Docker Images
+      └── Push Images to GHCR
+      │
+      ▼
+Container Registry (GHCR)
+      │
+      ▼
+Ansible Deployment
+      │
+      ▼
+Docker Compose Host
+      │
+      ├── Frontend Container
+      ├── Backend Container
+      └── PostgreSQL Container
+      │
+      ▼
+Application Health Check
 ```
 
 ---
 
-# ⚙️ Tech Stack
+# 📦 Application Stack
 
 | Layer | Technology |
-|------|------------|
+|-----|-----|
 | Frontend | React + Vite |
 | Backend | Node.js + Express |
 | Database | PostgreSQL |
 | Containerization | Docker |
-| Orchestration | Docker Compose |
+| Local Orchestration | Docker Compose |
 | CI Pipeline | GitHub Actions |
-| Image Registry | GitHub Container Registry (GHCR) |
+| Container Registry | GitHub Container Registry |
+| Deployment Automation | Ansible |
+| Infrastructure Blueprint | Terraform |
 
 ---
 
-# 🧱 Project Structure
+# 🐳 Container Architecture
 
-```text
-hackowac-cicd-booking-app
-│
-├── backend
-│   ├── Dockerfile
-│   ├── package.json
-│   └── server.js
+```
+docker-compose
 │
 ├── frontend
-│   ├── Dockerfile
-│   ├── src
-│   └── package.json
+│     React + Nginx
 │
-├── docker-compose.yml
+├── backend
+│     Node.js API
 │
-└── .github
-    └── workflows
-        └── ci.yml
+└── db
+      PostgreSQL
+```
+
+Services communicate over an internal Docker network.
+
+---
+
+# ⚙️ CI Pipeline
+
+The CI pipeline runs automatically on push.
+
+### Pipeline steps
+
+1️⃣ Install dependencies  
+2️⃣ Backend build validation  
+3️⃣ Frontend build validation  
+4️⃣ Docker image build  
+5️⃣ Publish images to **GHCR**
+
+Images produced:
+
+```
+ghcr.io/arshad-rahman/hackowac-cicd-booking-app-backend
+ghcr.io/arshad-rahman/hackowac-cicd-booking-app-frontend
+```
+
+These images are used during deployment.
+
+---
+
+# 🧩 Deployment Automation (Ansible)
+
+Ansible is used to automate server preparation and deployment.
+
+### Responsibilities
+
+• Install Docker on the target host  
+• Configure application directory  
+• Deploy `docker-compose.yml`  
+• Pull container images from GHCR  
+• Start services  
+• Validate application health endpoint
+
+### Playbooks
+
+```
+ansible/playbooks/setup-server.yml
+ansible/playbooks/deploy-app.yml
+```
+
+### Roles
+
+```
+docker_install
+app_deploy
 ```
 
 ---
 
-# 🚀 Running the Application Locally
+# ☁️ Infrastructure Blueprint (Terraform)
 
-## Clone the repository
+Terraform defines the infrastructure required to host the application on AWS.
 
-```bash
-git clone https://github.com/arshad-rahman/hackowac-cicd-booking-app.git
-cd hackowac-cicd-booking-app
+### Infrastructure design
+
+```
+AWS
+│
+└── VPC
+     │
+     └── Public Subnet
+           │
+           ├── Internet Gateway
+           ├── Route Table
+           ├── Security Group
+           │
+           └── EC2 Instance
+                  Docker Host
 ```
 
-## Start containers
+### Resources included
+
+- VPC
+- Public Subnet
+- Internet Gateway
+- Route Table
+- Security Group
+- EC2 Instance
+
+This infrastructure is designed to support **Ansible-based deployment of the application containers**.
+
+---
+
+# 📁 Repository Structure
+
+```
+hackowac-cicd-booking-app
+│
+├── backend/                # Node.js API
+├── frontend/               # React application
+│
+├── docker-compose.yml      # Local service orchestration
+│
+├── ansible/                # Deployment automation
+│   ├── inventory/
+│   ├── group_vars/
+│   ├── playbooks/
+│   └── roles/
+│
+├── infra/
+│   └── terraform/          # Infrastructure blueprint
+│
+├── .github/
+│   └── workflows/          # CI pipeline
+│
+└── README.md
+```
+
+---
+
+# 🧪 Local Development
+
+Run the application locally using Docker Compose.
+
+### Start services
 
 ```bash
 docker compose up --build
 ```
 
-## Access the services
+### Application URLs
 
-Frontend
-
-```text
-http://localhost
 ```
-
-Backend API
-
-```text
-http://localhost:5000
-```
-
-Health endpoint
-
-```text
-http://localhost:5000/health
+Frontend: http://localhost:80
+Backend:  http://localhost:5000
 ```
 
 ---
 
-# 🐳 Containerized Services
+# 🧾 Terraform Validation
 
-The application runs using **three containers**.
+Terraform configuration was validated locally using:
 
-| Service | Description |
-|-------|-------------|
-| frontend | React application served via Nginx |
-| backend | Node.js Express API |
-| db | PostgreSQL database |
-
-All containers are orchestrated using **Docker Compose**.
-
----
-
-# ⚡ Continuous Integration (CI)
-
-A **GitHub Actions workflow** automatically runs whenever code is pushed to the repository.
-
-## CI Pipeline Steps
-
-```text
-1. Checkout repository
-2. Install backend dependencies
-3. Install frontend dependencies
-4. Build frontend application
-5. Build backend Docker image
-6. Build frontend Docker image
-7. Push backend image to GitHub Container Registry
-8. Push frontend image to GitHub Container Registry
+```
+terraform init
+terraform validate
+terraform fmt
 ```
 
-This pipeline ensures that every change is:
-
-- dependency-validated
-- build-tested
-- containerized
-- ready for deployment
+The Terraform layer is included as an **infrastructure blueprint aligned with the deployment architecture**.
 
 ---
 
-# 📦 Published Container Images
+# 🔐 Notes
 
-Docker images are automatically published to **GitHub Container Registry (GHCR)**.
+This repository is a **DevOps portfolio project** designed to demonstrate engineering practices.
 
-Backend image
-
-```text
-ghcr.io/arshad-rahman/hackowac-cicd-booking-app-backend:latest
-```
-
-Frontend image
-
-```text
-ghcr.io/arshad-rahman/hackowac-cicd-booking-app-frontend:latest
-```
-
-These images can be pulled directly for deployment.
+It is not presented as a production deployment but rather as a **complete infrastructure + deployment workflow design**.
 
 ---
 
-# 🔍 Example API
+# 👤 Author
 
-Health check endpoint
+**Arshad Rahman**
 
-```text
-GET /health
-```
+DevOps Engineer focused on:
 
-Example response
+• CI/CD pipelines  
+• Infrastructure as Code  
+• Containerized deployment workflows  
+• Automation and platform reliability  
 
-```json
-{
-  "status": "ok"
-}
-```
-
----
-
-# 🔄 CI/CD Flow
-
-```text
-Code Push
-   │
-   ▼
-GitHub Repository
-   │
-   ▼
-GitHub Actions
-   │
-   ├─ Dependency Installation
-   ├─ Frontend Build
-   ├─ Backend Docker Build
-   ├─ Frontend Docker Build
-   └─ GHCR Image Publish
-         │
-         ▼
-Deployable Container Images
-```
-
----
-
-# 📈 DevOps Skills Demonstrated
-
-This project demonstrates practical experience with:
-
-- Docker containerization
-- multi-service orchestration with Docker Compose
-- CI automation using GitHub Actions
-- frontend build validation
-- backend and frontend image creation
-- container registry publishing with GHCR
-- DevOps pipeline design
-- infrastructure-ready deployment workflow
-
----
-
-# 🛠️ Future Enhancements
-
-Planned improvements for this project include:
-
-- Automated deployment to **AWS EC2**
-- Infrastructure provisioning using **Terraform**
-- Kubernetes deployment manifests
-- automated integration testing
-- monitoring with **Prometheus & Grafana**
-- blue-green or rolling deployments
-
----
-
-# 👨‍💻 Author
-
-**Arshad Rahman**  
-DevOps Engineer
-
-GitHub
-
-```text
+GitHub:  
 https://github.com/arshad-rahman
-```
 
 ---
 
-# ⭐ About This Repository
+# 📜 License
 
-This repository was created as a **DevOps portfolio project** to demonstrate how modern CI/CD pipelines work in containerized environments.
-
-If you find this project useful or interesting, feel free to **star the repository**.
+MIT License
