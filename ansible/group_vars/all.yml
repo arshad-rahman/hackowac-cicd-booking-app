@@ -1,0 +1,14 @@
+app_name: hackowac-cicd-booking-app
+deploy_path: /opt/hackowac-cicd-booking-app
+
+backend_image: ghcr.io/arshad-rahman/hackowac-cicd-booking-app-backend:latest
+frontend_image: ghcr.io/arshad-rahman/hackowac-cicd-booking-app-frontend:latest
+
+frontend_port: 80
+backend_port: 5000
+
+db_user: hackowac
+db_password: "CHANGE_ME"
+db_name: bookingdb
+
+healthcheck_url: "http://localhost:5000/health"

@@ -1,0 +1,33 @@
+- name: Create deploy directory
+  file:
+    path: "{{ deploy_path }}"
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: Write docker-compose.yml
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ deploy_path }}/docker-compose.yml"
+    mode: "0644"
+  become: true
+
+- name: Pull images and start services
+  shell: |
+    cd {{ deploy_path }}
+    docker compose pull
+    docker compose up -d
+  args:
+    executable: /bin/bash
+  become: true
+
+- name: Wait for backend health endpoint
+  uri:
+    url: "{{ healthcheck_url }}"
+    method: GET
+    status_code: 200
+    return_content: true
+  register: health
+  retries: 15
+  delay: 4
+  until: health.status == 200

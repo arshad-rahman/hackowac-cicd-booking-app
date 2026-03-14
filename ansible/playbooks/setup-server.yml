@@ -1,0 +1,5 @@
+- name: Setup server for container deployments
+  hosts: app
+  become: true
+  roles:
+    - docker_install
